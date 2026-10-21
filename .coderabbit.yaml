@@ -1,0 +1,52 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+language: "en-US"
+early_access: false
+
+tone_instructions: >
+  Be concise, professional, and engineering-focused. Avoid conversational fluff,
+  over-praising, or subjective nitpicking.
+
+reviews:
+  # 'chill' profile prevents aggressive nitpicking and pedantic styling comments
+  profile: "chill"
+  
+  # Turn off gimmicks
+  poem: false
+  sequence_diagrams: false
+  collapse_walkthrough: true
+  high_level_summary: true
+  review_status: true
+
+  auto_review:
+    enabled: true
+    # Don't waste review tokens/comments on Work-In-Progress drafts
+    drafts: false
+
+  # Ignore noise files, generated bundles, locks, and assets
+  path_filters:
+    - "!**/*.lock"
+    - "!**/package-lock.json"
+    - "!**/pnpm-lock.yaml"
+    - "!**/yarn.lock"
+    - "!**/dist/**"
+    - "!**/build/**"
+    - "!**/out/**"
+    - "!**/*.min.*"
+    - "!**/*.map"
+    - "!**/*.svg"
+    - "!**/*.png"
+    - "!**/*.jpg"
+    - "!**/*.webp"
+    - "!**/*.ico"
+    - "!**/*.pdf"
+
+  # Strict instructions to ensure high-signal and ZERO noise
+  instructions: |
+    - Focus ONLY on critical logic bugs, concurrency/async race conditions, and edge-case exceptions.
+    - Focus heavily on security vulnerabilities: secret/key leaks, injection flaws, auth/permission bypasses, and data sanitization.
+    - Strictly IGNORE styling, formatting, linting aesthetics, import ordering, and subjective naming preferences.
+    - Provide concrete code suggestions with one-click replacements only when fixing an actual bug or security flaw.
+    - If no significant bugs or security issues are detected, simply approve with a brief confirmation.
+
+chat:
+  auto_reply: true
